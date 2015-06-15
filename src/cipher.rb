@@ -238,3 +238,34 @@ class DazeCipher
 		return key
 	end
 end
+
+class XorCipher
+	
+	def self.crypt(str, key)
+		
+		res = String.new
+		bytes = str.unpack("S*")
+		
+		bytes.each do |b| # 16bit
+			buffer = (b ^ key)
+			res += (buffer & 0xff).chr
+			res += (buffer >> 8).chr
+		end
+		
+		return res
+	end
+	
+	def self.decrypt(str, key)
+		
+		res = String.new
+		bytes = str.unpack("S*")
+		
+		bytes.each do |b| # 16bit
+			buffer = (b ^ key)
+			res += (buffer & 0xff).chr
+			res += (buffer >> 8).chr
+		end
+		
+		return res
+	end
+end

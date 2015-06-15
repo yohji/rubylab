@@ -45,7 +45,6 @@ end
 
 class DazeCipherTest < Test::Unit::TestCase
 
-
 	def test_crypt
 		
 		(1 ... 255).each do |key|
@@ -76,3 +75,17 @@ class DazeCipherTest < Test::Unit::TestCase
 	end
 end
 
+class XorCipherTest < Test::Unit::TestCase
+
+	def test_crypt
+		
+		(1 .. 9999).each do |key|
+			
+			secret = XorCipher.crypt(TEXT, key)
+			plain = XorCipher.decrypt(secret, key)
+			
+			assert_equal(TEXT.size, plain.size)
+			assert_equal(TEXT, plain, "key: #{key}")
+		end
+	end
+end
