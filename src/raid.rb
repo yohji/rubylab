@@ -26,7 +26,7 @@ class Raid4
 	FILE_PARITY = BASE_PATH + "%s.parity"
 	FILE_RESTORE = BASE_PATH + "%s.restore"
 	
-	def self.store(filepath)
+	def Raid4.store(filepath)
 		
 		if ! File.exist?(filepath)
 			raise IOError, "File '#{filepath}' does not exists."
@@ -62,7 +62,7 @@ class Raid4
 		parity.close
 	end
 	
-	def self.restore(filename)
+	def Raid4.restore(filename)
 		
 		e1 = File.exist?(FILE_PART_1 % filename)
 		e2 = File.exist?(FILE_PART_2 % filename)

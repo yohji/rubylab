@@ -20,7 +20,13 @@
 
 
 class MultiHash < Hash
-
+	# remove_method :asd
+	
+	# TODO: override: [], []=, invert, rassoc
+	# TODO: aliases remains
+	alias :value? :has_value?
+	alias :[]= :store
+	
 	def store(key, value)
 		
 		values = self[key]
@@ -90,6 +96,4 @@ class MultiHash < Hash
 
 		return false
 	end
-
-	alias :value? :has_value?
 end

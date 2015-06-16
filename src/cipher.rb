@@ -24,7 +24,7 @@ class CaesarCipher
 	NUM_OFFSET = 48
 	CHAR_OFFSET = 65
 
-	def self.crypt(str)
+	def CaesarCipher.crypt(str)
 
 		enc = String.new
 		str = str.upcase
@@ -45,7 +45,7 @@ class CaesarCipher
 		return enc
 	end
 
-	def self.decrypt(str)
+	def CaesarCipher.decrypt(str)
 
 		dec = String.new
 		str = str.upcase
@@ -73,7 +73,7 @@ class AutoshiftCipher
 	UPCHAR_OFFSET = 65
 	DNCHAR_OFFSET = 97
 	
-	def self.crypt(str)
+	def AutoshiftCipher.crypt(str)
 
 		enc = String.new
 
@@ -102,7 +102,7 @@ class AutoshiftCipher
 		return enc
 	end
 
-	def self.decrypt(str)
+	def AutoshiftCipher.decrypt(str)
 
 		dec = String.new
 
@@ -241,7 +241,7 @@ end
 
 class XorCipher
 	
-	def self.crypt(str, key)
+	def XorCipher.crypt(str, key)
 		
 		res = String.new
 		bytes = str.unpack("S*")
@@ -255,7 +255,7 @@ class XorCipher
 		return res
 	end
 	
-	def self.decrypt(str, key)
+	def XorCipher.decrypt(str, key)
 		
 		res = String.new
 		bytes = str.unpack("S*")

@@ -22,7 +22,7 @@ class BaseLXIV
 	
 	BASE64_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 	
-	def self.encode(str)
+	def BaseLXIV.encode(str)
 		
 		if str == ""
 			return str
@@ -56,7 +56,7 @@ class BaseLXIV
 		return enc
 	end
 	
-	def self.decode(str)
+	def BaseLXIV.decode(str)
 		
 		dec = String.new
 		
@@ -90,7 +90,7 @@ class BaseLXIV
 		return dec
 	end
 	
-	def self.encode_stream(str)
+	def BaseLXIV.encode_stream(str)
 		
 		if str == ""
 			return str
