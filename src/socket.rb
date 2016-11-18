@@ -18,40 +18,55 @@
 #	Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 
-class Adder
+require "socket"
 
-	def Adder.half(a, b)
-		
-		s = a ^ b
-		c = a & b
-		
-		return s, c
-	end  
+HOSTNAME="127.0.0.1"
 
-	def Adder.full(a, b, ci)
+class Provider
+	
+	def initialize(port)
 		
-		s = (ab = a ^ b) ^ ci
-		co = (a & b) | (ab & ci)
+		@port = port
 		
-		return s, co
-	end  
+	end
+	
+	def start
+		
+		@server = TCPServer.open(HOSTNAME, @port)
+		@daemon = Thread.start do
+			loop { handle }
+		end
+		
+		return self
+	end
+	
+	def stop
+		
+		Thread.kill(@daemon)
+		@server.shutdown
+	end
+	
+	def handle
+		
+		Thread.start(@server.accept) do |client|
+			puts "provider: #{client.addr}"
+			
+			client.puts(Time.now.ctime)
+			client.close
+		end
+	end
 end
 
-class Subtractor
-
-	def Subtractor.half(a, b)
+class Consumer
+	
+	def Consumer.call(port)
 		
-		d = a ^ b
-		bo = ~a & b
+		sock = TCPSocket.open(HOSTNAME, port)
 		
-		return d, bo
-	end  
-
-	def Subtractor.full(a, b, bi)
+		while line = sock.gets
+			puts "consumer: #{line.chop}"
+		end
 		
-		d = (ab = a ^ b) ^ bi
-		bo = (~a & b) | (~ab & bi)
-		
-		return d, bo
-	end  
+		sock.close
+	end
 end
