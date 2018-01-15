@@ -41,22 +41,24 @@ end
 
 while true do
 	curr = Random.rand(1000 << ($difficulty * 2.5)).to_s
-	$stats[1] += 1
 	print "#{curr}: ".yellow
 
 	buffer = String.new
 	while ((digit = STDIN.getch) != nil) do
-		terminate if digit == "\u0003"
+	
+		terminate if digit == "\u0003" or digit == "\u001b"
+		next if not digit.between?("0", "9")
 		
 		buffer << digit
 		print "*"
 		break if buffer.length == curr.length
 	end
 
+	$stats[1] += 1
 	if buffer == curr
 		print " -> OK\n".green
 		$stats[0] += 1
 	else
-		print " -> KO\n".red
+		print " -> KO [*: #{buffer}]\n".red
 	end
 end
