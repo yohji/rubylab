@@ -33,7 +33,7 @@ def terminate
 	print "\n\nResult: ".blue
 	print "#{$stats[0]}".green
 	print "/#{$stats[1]} (".blue
-	print "#{(($stats[0] / ($stats[1] * 1.0)) * 100).round}%".green
+	print "#{(($stats[0] / ($stats[1] * 1.0)) * 100).round}%".green if $stats[1] > 0
 	print ")\n".blue
 		
 	exit
@@ -46,7 +46,13 @@ while true do
 	buffer = String.new
 	while ((digit = STDIN.getch) != nil) do
 	
-		terminate if digit == "\u0003" or digit == "\u001b"
+		if digit == "\u007F" and not buffer.empty?
+			buffer.chop!
+			print "\b \b"
+			next
+		end
+		
+		terminate if digit == "\u0003" or digit == "\u001B"
 		next if not digit.between?("0", "9")
 		
 		buffer << digit
